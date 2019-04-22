@@ -1,0 +1,108 @@
+.container {
+    width: 100%;
+    padding: 15px 50px;
+
+    @media (max-width: 600px) {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+.bloco {
+    width: 100%;
+    position: relative;
+    margin-top: 30px;
+
+    .icon {
+        height: 50px;
+        width: 70px;
+        position: absolute;
+        left: 0;
+        z-index: 9999;
+        border-radius: 5px;
+        margin-left: 15px;
+        margin-top: -18px;
+
+        mat-icon {
+            font-size: 40px;
+            position: absolute;
+            margin-left: 15px;
+            margin-top: 5px;
+            color: #fff;
+        }
+    }
+
+    .titulo {
+        padding-top: 5px;
+        height: 30px;
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: -25px;
+        position: absolute;
+        left: 0;
+        z-index: 9999;
+        border-radius: 5px;
+        text-align: center;
+
+        span {
+            font-size: 20px;
+            color: #fff;
+        }
+    }
+}
+
+.cor1 {
+    background-color: rgba(255,152,0,.9);
+}
+
+.cor2 {
+    background-color: rgba(76,175,80,.9);
+}
+
+.cor3 {
+    background-color: rgba(244,67,54,.9);
+}
+
+.cor4 {
+    background-color: rgba(0,188,212,.9);
+}
+
+
+.relatorio-card {
+    text-align: right;
+
+    .item {
+        color: rgb(131, 131, 131);
+        width: 100%;
+        display: inline-block;
+    }
+
+    .valor {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        font-size: 25px;
+        display: inline-block;
+    }
+
+    .periodo {
+        margin-top: 15px;
+        padding: 5px 0;
+        font-size: 12px;
+        color: rgb(131, 131, 131);
+        border-top: 1px solid #ccc;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+/* Structure */
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}

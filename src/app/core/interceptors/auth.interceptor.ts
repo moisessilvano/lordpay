@@ -10,14 +10,14 @@ import {
     HttpErrorResponse,
     HttpHeaders
 } from '@angular/common/http';
-import { AuthService } from 'src/app/modules/auth/auth.service';
+// import { AuthService } from 'src/app/modules/auth/auth.service';
 
 
 @Injectable()
 
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private authService: AuthService) { }
+    constructor() { }
 
     intercept(
         req: HttpRequest<any>,
@@ -28,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
             let headers = new HttpHeaders();
             headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-            headers = headers.append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+            headers = headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
 
             const request = req.clone({
                 headers: headers,
@@ -49,7 +49,7 @@ export class AuthInterceptor implements HttpInterceptor {
                         if (response instanceof HttpErrorResponse) {
                             if (response.status === 401) {
                                 // console.log('this should print your error!', response.error);
-                                this.authService.logoutAuth();
+                                // this.authService.logoutAuth();
                             }
                         }
                         return throwError(response);

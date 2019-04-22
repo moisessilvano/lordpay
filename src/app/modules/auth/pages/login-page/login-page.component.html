@@ -1,0 +1,46 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="login-main">
+  <mat-card>
+    <form (ngSubmit)="onSubmit()" [formGroup]="authForm">
+      <mat-card-header>
+        <mat-card-title>Login Page</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content fxLayout="column">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Usuário"
+            formControlName="username"
+            required
+          />
+        </mat-form-field>
+        <span
+          *ngIf="authForm.controls.username.hasError('required') && submitted"
+          class="hasError"
+        >
+          Usuário é obrigatório
+        </span>
+
+        <mat-form-field>
+          <input
+            type="password"
+            matInput
+            placeholder="Senha"
+            formControlName="password"
+            required
+          />
+        </mat-form-field>
+        <span
+          *ngIf="authForm.controls.password.hasError('required') && submitted"
+          class="hasError"
+        >
+          Senha é obrigatório
+        </span>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button type="submit" mat-raised-button color="primary">Entrar</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>
