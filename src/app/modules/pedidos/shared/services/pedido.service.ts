@@ -12,15 +12,15 @@ export class PedidoService {
   constructor(private http: HttpClient) { }
 
   newPedido(pedido: Pedido) {
-    return this.http.post<any>(`${environment.apiUrl}api/pedidos/newPedido`, pedido);
+    return this.http.post<any>(`${environment.apiUrl}api/pedidos`, pedido);
   }
 
   getPedidos(params): Observable<Pedido[]> {
-    return this.http.get<any>(`${environment.apiUrl}/api/pedidos`, { params: params });
+    return this.http.get<any>(`${environment.apiUrl}api/pedidos`, { params: params });
   }
 
   getPedido(pedidoId: string): Observable<Pedido[]> {
-    return this.http.get<any>(`${environment.apiUrl}/api/pedidos/${pedidoId}`);
+    return this.http.get<any>(`${environment.apiUrl}api/pedidos/${pedidoId}`);
   }
 
   updateStatusPedido(pedidoId: string, status: number) {
@@ -28,11 +28,11 @@ export class PedidoService {
   }
 
   getPedidosByCliente(clienteId: string, params): Observable<Pedido[]> {
-    return this.http.get<any>(`${environment.apiUrl}/api/pedidos/getPedidosByCliente/${clienteId}`, { params: params });
+    return this.http.get<any>(`${environment.apiUrl}api/pedidos/getPedidosByCliente/${clienteId}`, { params: params });
   }
 
   getPedidosByData(data: string, params): Observable<Pedido[]> {
-    return this.http.get<any>(`${environment.apiUrl}/api/pedidos/getPedidosByData/${data}`, { params: params });
+    return this.http.get<any>(`${environment.apiUrl}api/pedidos/getPedidosByData/${data}`, { params: params });
   }
 
 

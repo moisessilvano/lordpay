@@ -1,11 +1,14 @@
-<div fxLayout="row" fxLayoutAlign="center center" class="login-main">
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  fxLayoutGap="30px"
+  class="login-main"
+>
   <mat-card>
     <form (ngSubmit)="onSubmit()" [formGroup]="authForm">
-      <mat-card-header>
-        <mat-card-title>Login Page2</mat-card-title>
-      </mat-card-header>
-
       <mat-card-content fxLayout="column">
+        <h1 class="title">LordControl</h1>
+
         <mat-form-field>
           <input
             matInput
@@ -28,7 +31,11 @@
             placeholder="Senha"
             formControlName="password"
             required
+            [type]="hide ? 'text' : 'password'"
           />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility" : "visibility_off"
+          }}</mat-icon>
         </mat-form-field>
         <span
           *ngIf="authForm.controls.password.hasError('required') && submitted"

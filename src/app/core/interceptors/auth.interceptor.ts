@@ -26,12 +26,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
         if (req.url.indexOf('/oauth') > 0) {
 
-            let headers = new HttpHeaders();
-            headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-            headers = headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+            // let headers = new HttpHeaders();
+            // headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+            // headers = headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
 
             const request = req.clone({
-                headers: headers,
+                // headers: headers
             });
 
             // console.log('INTERCEPTOR');

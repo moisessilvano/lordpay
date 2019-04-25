@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://lordpay.lordsoft.com.br/'
+  apiUrl: 'https://lordcontrol.herokuapp.com/'
 };
 
 /*

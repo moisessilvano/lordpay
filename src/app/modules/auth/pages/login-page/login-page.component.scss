@@ -1,7 +1,13 @@
 .login-main {
     width: 100%;
     height: 100%;
+    padding: 0 30px;
     position: absolute;
+
+    .title {
+        text-align: center;
+        padding: 20px 0;
+    }
 }
     
 mat-card {

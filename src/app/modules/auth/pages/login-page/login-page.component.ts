@@ -51,12 +51,12 @@ export class LoginPageComponent implements OnInit {
         .subscribe(res => {
           console.log('USUÁRIO AUTENTIFICADO COM SUCESSO');
 
-          this.toastr.success('Conectado com sucesso!');
+          // this.toastr.success('Conectado com sucesso!');
           this.router.navigate(['/dashboard']);
           return res;
         }, err => {
           console.log('ERRO AO AUTENTIFICAR USUÁRIO');
-
+          console.log(err);
           this.toastr.error('Erro ao efetuar login!');
           return err;
         });

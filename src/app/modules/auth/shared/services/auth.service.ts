@@ -26,20 +26,20 @@ export class AuthService {
   // EFETUA O LOGIN DO USUÁRIO
   validarAuth(auth: Auth) {
     // DADOS DO LOGIN
-    const body = 'username=' + auth.username + '&password=' + auth.password + '&grant_type=password';
+    // const body = 'username=' + auth.username + '&password=' + auth.password + '&grant_type=password';
 
-    return this.http.post<any>(`${environment.apiUrl}oauth/token`, body)
+    return this.http.post<any>(`${environment.apiUrl}oauth/token`, auth)
       .pipe(map(res => {
 
         console.log(res);
 
         // CASO O LOGIN SEJA EFETUADO COM SUCESSO
-        if (res && res.status) {
+        if (res.token) {
 
           this.usuarioLogado = true;
 
           // ARMAZENA TOKEN E NOME DO USUÁRIO
-          localStorage.setItem('token', res.access_token);
+          localStorage.setItem('token', res.token);
 
         } else {
           this.usuarioLogado = false;

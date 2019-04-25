@@ -7,7 +7,9 @@ const routes: Routes = [
   { path: '',
     component: DashboardComponent,
     children: [
-      { path: '', component: HomePageComponent }
+      { path: '', component: HomePageComponent },
+      { path: 'home', component: HomePageComponent },
+      { path: 'pedidos', loadChildren: '../pedidos/pedidos.module#PedidosModule' }
     ]
   }
 ];

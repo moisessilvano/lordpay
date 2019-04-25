@@ -1,3 +1,88 @@
-<p>
-  criar-pedido-page works!
-</p>
+<div
+  class="container"
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="center"
+  fxLayoutGap="10px grid"
+  fxLayoutGap.xs="0"
+>
+  <div fxFlex="80">
+    <h1>Criar Pedido</h1>
+  </div>
+  <div fxFlex="20" fxLayoutAlign="center center">
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['criar']"
+      routerLinkActive="router-link-active"
+    >
+      Novo Pedido
+    </button>
+  </div>
+</div>
+
+<div
+  class="container"
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="left"
+  fxLayoutGap="10px grid"
+  fxLayoutGap.xs="0"
+></div>
+
+<div
+  class="container"
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="left"
+  fxLayoutGap="10px grid"
+  fxLayoutGap.xs="0"
+>
+  <div fxFlex="100">
+    <form (ngSubmit)="onSubmit()" [formGroup]="pedidoForm">
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+        formGroupName="cliente"
+      >
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Nome"
+              formControlName="nome"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="CPF" formControlName="cpf" required />
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Telefone"
+              formControlName="telefone"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="E-mail"
+              formControlName="email"
+              required
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <button type="submit" mat-raised-button color="primary">Salvar</button>
+    </form>
+  </div>
+</div>
