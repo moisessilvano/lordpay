@@ -96,6 +96,7 @@
               placeholder="CEP"
               formControlName="cep"
               required
+              (blur)="consultarCep()"
             />
           </mat-form-field>
         </div>
@@ -111,6 +112,7 @@
               placeholder="Numero"
               formControlName="numero"
               required
+              #numero
             />
           </mat-form-field>
         </div>

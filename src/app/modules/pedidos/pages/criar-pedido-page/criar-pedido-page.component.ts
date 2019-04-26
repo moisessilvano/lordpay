@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pedido } from '../../shared/models/pedido.model';
+import { Endereco } from '../../shared/models/endereco.model';
 import { PedidoService } from '../../shared/services/pedido.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ViaCepService } from '../../../../shared/services/via-cep.service';
+
 
 @Component({
   selector: 'app-criar-pedido-page',
@@ -11,6 +14,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./criar-pedido-page.component.scss']
 })
 export class CriarPedidoPageComponent implements OnInit {
+
+  @ViewChild('numero') Numero: any;
 
   pedidoForm: FormGroup;
   pedido = new Pedido();
@@ -21,6 +26,7 @@ export class CriarPedidoPageComponent implements OnInit {
 
   constructor(
     private pedidoService: PedidoService,
+    private viaCepService: ViaCepService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
@@ -118,6 +124,16 @@ export class CriarPedidoPageComponent implements OnInit {
         console.log(err);
         return err;
       });
+  }
+
+  consultarCep() {
+      return this.viaCepService.getEndereco(this.pedidoForm.value.endereco.cep)
+      .then(res => {
+        this.pedido = this.pedidoForm.value;
+        this.pedido.endereco = res;
+        this.iniciarFormulario();
+        this.Numero.setFocus();
+      });  
   }
 
 }
