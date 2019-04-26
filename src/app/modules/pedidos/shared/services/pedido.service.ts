@@ -11,7 +11,11 @@ export class PedidoService {
 
   constructor(private http: HttpClient) { }
 
-  newPedido(pedido: Pedido) {
+  createPedido(pedido: Pedido) {
+    return this.http.post<any>(`${environment.apiUrl}api/pedidos`, pedido);
+  }
+
+  updatePedido(pedidoId: string, pedido: Pedido) {
     return this.http.post<any>(`${environment.apiUrl}api/pedidos`, pedido);
   }
 
@@ -19,7 +23,7 @@ export class PedidoService {
     return this.http.get<any>(`${environment.apiUrl}api/pedidos`, { params: params });
   }
 
-  getPedido(pedidoId: string): Observable<Pedido[]> {
+  getPedido(pedidoId: string): Observable<Pedido> {
     return this.http.get<any>(`${environment.apiUrl}api/pedidos/${pedidoId}`);
   }
 

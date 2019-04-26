@@ -1,7 +1,7 @@
 export class Endereco {
     _id: string;
     cep: string;
-    endereco: string;
+    logradouro: string;
     numero: string;
     complemento: string;
     bairro: string;

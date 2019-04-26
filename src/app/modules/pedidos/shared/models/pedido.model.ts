@@ -8,7 +8,7 @@ export class Pedido {
     valorTotal: number;
     dataCriado: string;
     obs: string;
-    cliente: Cliente;
-    endereco: Endereco;
+    cliente = new Cliente();
+    endereco = new Endereco();
     produtos: Produto[];
 }

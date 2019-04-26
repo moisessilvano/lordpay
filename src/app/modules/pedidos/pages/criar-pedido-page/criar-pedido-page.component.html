@@ -2,33 +2,13 @@
   class="container"
   fxLayout
   fxLayout.xs="column"
-  fxLayoutAlign="center"
   fxLayoutGap="10px grid"
   fxLayoutGap.xs="0"
 >
-  <div fxFlex="80">
+  <div fxFlex="100">
     <h1>Criar Pedido</h1>
   </div>
-  <div fxFlex="20" fxLayoutAlign="center center">
-    <button
-      mat-raised-button
-      color="primary"
-      [routerLink]="['criar']"
-      routerLinkActive="router-link-active"
-    >
-      Novo Pedido
-    </button>
-  </div>
 </div>
-
-<div
-  class="container"
-  fxLayout
-  fxLayout.xs="column"
-  fxLayoutAlign="left"
-  fxLayoutGap="10px grid"
-  fxLayoutGap.xs="0"
-></div>
 
 <div
   class="container"
@@ -46,6 +26,21 @@
         fxLayoutGap="10px grid"
         formGroupName="cliente"
       >
+        <div fxFlex="100">
+          <div class="grupo-titulo">Cliente</div>
+        </div>
+      </div>      
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+        formGroupName="cliente"
+      >
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="CPF" formControlName="cpf"  />
+          </mat-form-field>
+        </div>
         <div fxFlex="25">
           <mat-form-field class="w-100">
             <input
@@ -55,20 +50,16 @@
               required
             />
           </mat-form-field>
-        </div>
-        <div fxFlex="25">
-          <mat-form-field class="w-100">
-            <input matInput placeholder="CPF" formControlName="cpf" required />
-          </mat-form-field>
-        </div>
+        </div>        
         <div fxFlex="25">
           <mat-form-field class="w-100">
             <input
               matInput
               placeholder="Telefone"
               formControlName="telefone"
-              required
             />
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-hint>Com código de área</mat-hint>
           </mat-form-field>
         </div>
         <div fxFlex="25">
@@ -77,11 +68,141 @@
               matInput
               placeholder="E-mail"
               formControlName="email"
+              
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+        formGroupName="cliente"
+      >
+        <div fxFlex="100">
+          <div class="grupo-titulo">Endereço</div>
+        </div>
+      </div>
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+        formGroupName="endereco"
+      >
+        <div fxFlex="20">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="CEP"
+              formControlName="cep"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="60">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Logradouro" formControlName="logradouro" required />
+          </mat-form-field>
+        </div>
+        <div fxFlex="20">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Numero"
+              formControlName="numero"
               required
             />
           </mat-form-field>
         </div>
       </div>
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+        formGroupName="endereco"
+      >
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Complemento"
+              formControlName="complemento"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Bairro" formControlName="bairro" required />
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Cidade"
+              formControlName="cidade"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Estado"
+              formControlName="estado"
+              required
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+        formGroupName="cliente"
+      >
+        <div fxFlex="100">
+          <div class="grupo-titulo">Pedido</div>
+        </div>
+      </div>
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+      >
+        <div fxFlex="100">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Obs"
+              formControlName="obs"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+      >
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Taxa Entrega"
+              formControlName="taxaEntrega"
+            />
+            <span matPrefix>R$&nbsp;</span>
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Valor Total" formControlName="valorTotal" required />
+            <span matPrefix>R$&nbsp;</span>
+          </mat-form-field>
+        </div>
+      </div>                      
       <button type="submit" mat-raised-button color="primary">Salvar</button>
     </form>
   </div>
