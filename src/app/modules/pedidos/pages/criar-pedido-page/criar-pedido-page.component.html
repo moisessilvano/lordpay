@@ -24,7 +24,6 @@
         fxLayout
         fxLayout.xs="column"
         fxLayoutGap="10px grid"
-        formGroupName="cliente"
       >
         <div fxFlex="100">
           <div class="grupo-titulo">Cliente</div>
@@ -77,7 +76,6 @@
         fxLayout
         fxLayout.xs="column"
         fxLayoutGap="10px grid"
-        formGroupName="cliente"
       >
         <div fxFlex="100">
           <div class="grupo-titulo">Endereço</div>
@@ -162,7 +160,98 @@
         fxLayout
         fxLayout.xs="column"
         fxLayoutGap="10px grid"
-        formGroupName="cliente"
+      >
+        <div fxFlex="50">
+          <div class="grupo-titulo">Produtos</div>
+        </div>
+        <div fxFlex="50" style="text-align: right;">
+            <button type="button" mat-icon-button (click)="addProduto()">
+              <mat-icon aria-label="Example icon-button with a heart icon">add_circle</mat-icon>
+            </button>
+        </div>
+      </div>
+
+      <div
+        formArrayName="produtos"
+        *ngFor="let produto of pedidoForm.get('produtos').controls; let i = index;">
+        <div
+          fxLayout
+          fxLayout.xs="column"
+          fxLayoutGap="10px grid"
+          [formGroupName]="i"
+        >
+          <div fxFlex="20">
+            <mat-form-field class="w-100">
+              <input
+                matInput
+                placeholder="Descrição"
+                formControlName="descricao"
+              />
+            </mat-form-field>
+          </div>
+          <div fxFlex="20">
+            <mat-form-field class="w-100">
+              <input
+                type="number"
+                matInput
+                placeholder="Valor Unitário"
+                formControlName="valorUnitario"
+                (blur)="calcValorTotalProduto(i)"
+                min="0"
+              />
+            <span matPrefix>R$&nbsp;</span>
+            </mat-form-field>
+          </div>           
+          <div fxFlex="10">
+            <mat-form-field class="w-100">
+              <input
+                type="number"
+                matInput
+                placeholder="Quantidade"
+                formControlName="quantidade"
+                (blur)="calcValorTotalProduto(i)"
+                min="1"
+              />
+            </mat-form-field>
+          </div>
+          <div fxFlex="20">
+            <mat-form-field class="w-100">
+              <input
+                type="number"
+                matInput
+                placeholder="Valor Desconto"
+                formControlName="valorDesconto"
+                (blur)="calcValorTotalProduto(i)"
+                min="0"
+              />
+              <span matPrefix>R$&nbsp;</span>
+            </mat-form-field>
+          </div>
+          <div fxFlex="20">
+            <mat-form-field class="w-100">
+              <input
+                type="number"
+                matInput
+                placeholder="Valor Total"
+                formControlName="valorTotal"
+                readonly="readonly"
+                min="0"
+              />
+              <span matPrefix>R$&nbsp;</span>
+            </mat-form-field>
+          </div>                    
+        <div fxFlex="10" style="text-align: right;" *ngIf="pedidoForm.value.produtos.length > 1">
+            <button type="button" mat-icon-button (click)="removeProduto(i)" color="warn">
+              <mat-icon aria-label="Example icon-button with a heart icon">remove_circle</mat-icon>
+            </button>
+        </div>          
+        </div>
+      </div>
+
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
       >
         <div fxFlex="100">
           <div class="grupo-titulo">Pedido</div>
@@ -191,9 +280,37 @@
         <div fxFlex="25">
           <mat-form-field class="w-100">
             <input
+              type="number"
+              matInput
+              placeholder="SubTotal"
+              formControlName="subTotal"
+              required
+            />
+            <span matPrefix>R$&nbsp;</span>
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              type="number"
+              matInput
+              placeholder="Valor Desconto"
+              formControlName="valorDesconto"
+              required
+              (blur)="calcValorTotalPedido()"
+            />
+            <span matPrefix>R$&nbsp;</span>
+          </mat-form-field>
+        </div>        
+        <div fxFlex="25">
+          <mat-form-field class="w-100">
+            <input
+              type="number"
               matInput
               placeholder="Taxa Entrega"
               formControlName="taxaEntrega"
+              required
+              (blur)="calcValorTotalPedido()"
             />
             <span matPrefix>R$&nbsp;</span>
           </mat-form-field>
@@ -204,8 +321,16 @@
             <span matPrefix>R$&nbsp;</span>
           </mat-form-field>
         </div>
-      </div>                      
-      <button type="submit" mat-raised-button color="primary">Salvar</button>
+      </div>
+      <div
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutGap="10px grid"
+      >
+        <div fxFlex="100" style="text-align: right;">
+          <button type="submit" mat-raised-button color="primary">Salvar</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>

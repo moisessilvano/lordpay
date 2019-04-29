@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Pedido } from '../../shared/models/pedido.model';
+import { Produto } from '../../shared/models/produto.model';
 import { Endereco } from '../../shared/models/endereco.model';
 import { PedidoService } from '../../shared/services/pedido.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ViaCepService } from '../../../../shared/services/via-cep.service';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -24,6 +26,8 @@ export class CriarPedidoPageComponent implements OnInit {
 
   submitted = false;
 
+  produtos: FormArray;
+
   constructor(
     private pedidoService: PedidoService,
     private viaCepService: ViaCepService,
@@ -34,8 +38,6 @@ export class CriarPedidoPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.iniciarFormulario();
-
     // OBTEM OS PARAMETROS ESTIPULADOS NA ROTA
     this.sub = this.route.params.subscribe(params => {
       console.log('-- OBTEM pedidoID');
@@ -43,13 +45,23 @@ export class CriarPedidoPageComponent implements OnInit {
       console.log(this.pedidoId);
     });
 
+    const produto = new Produto();
+    this.pedido.produtos = [produto];
     if (this.pedidoId) {
       this.getPedido();
     }
+
+    this.iniciarFormulario();    
   }
 
   iniciarFormulario() {
+    console.log('-- INICIAR FORMULÁRIO --');
     this.pedidoForm = this.formBuilder.group({
+      obs: [this.pedido.obs, Validators.required],
+      subTotal: [this.pedido.subTotal, Validators.required],
+      valorDesconto: [this.pedido.valorDesconto, Validators.required],
+      taxaEntrega: [this.pedido.taxaEntrega, Validators.required],
+      valorTotal: [this.pedido.valorTotal, Validators.required],
       cliente: this.formBuilder.group({
         nome: [this.pedido.cliente.nome, Validators.required],
         telefone: [this.pedido.cliente.telefone],
@@ -65,10 +77,85 @@ export class CriarPedidoPageComponent implements OnInit {
         cidade: [this.pedido.endereco.cidade, Validators.required],
         estado: [this.pedido.endereco.estado, Validators.required]
       }),
-      obs: [this.pedido.obs, Validators.required],
-      taxaEntrega: [this.pedido.taxaEntrega, Validators.required],
-      valorTotal: [this.pedido.valorTotal, Validators.required]
+      produtos: this.formBuilder.array([])
     });
+
+    this.initProdutosFormArray(this.pedido.produtos);
+  }
+
+  initProdutosFormArray(produtos: Produto[]) {
+    const formArray = this.pedidoForm.get('produtos') as FormArray;
+    produtos.map(item => {
+      formArray.push(this.createProduto(item));
+    });
+    this.pedidoForm.setControl('produtos', formArray);
+  }
+
+  createProduto(produto: Produto): FormGroup {
+    return this.formBuilder.group({
+      descricao: [produto.descricao, Validators.required],
+      quantidade: [produto.quantidade, Validators.required],
+      valorUnitario: [produto.valorUnitario, Validators.required],
+      valorDesconto: [produto.valorDesconto, Validators.required],
+      valorTotal: [produto.valorTotal, Validators.required]
+    });
+  }
+
+  addProduto(): void {
+    console.log('-- ADICIONAR PRODUTO A LISTAGEM --');
+    const produto = new Produto();
+    this.produtos = this.pedidoForm.get('produtos') as FormArray;
+    this.produtos.push(this.createProduto(produto));
+  }
+
+  removeProduto(index) {
+    console.log('-- REMOVER PRODUTO DA LISTAGEM --');
+    this.produtos.removeAt(index);
+  }
+
+  calcValorTotalProduto(index) {
+    console.log('-- CALCULAR VALOR TOTAL PRODUTO --');
+    
+    const controlArray = <FormArray> this.pedidoForm.get('produtos');
+
+    const produto = this.pedidoForm.value.produtos[index];
+    const valorUnitario = produto.valorUnitario;
+    const quantidade = produto.quantidade;
+    const subTotal = valorUnitario * quantidade;
+    let valorDesconto = produto.valorDesconto;
+
+    if (valorDesconto > subTotal) {
+      valorDesconto = 0;
+      controlArray.controls[index].get('valorDesconto').setValue(valorDesconto);
+      this.toastr.error('DESCONTO NÃO PODE SER MAIOR QUE O VALOR DO PRODUTO!');
+    }
+
+    const valorTotal = (valorUnitario * quantidade) - valorDesconto;
+    
+    controlArray.controls[index].get('valorTotal').setValue(valorTotal);
+
+    this.calcValorTotalPedido();
+  }
+
+  calcValorTotalPedido() {
+    console.log('-- CALCULAR VALOR TOTAL PEDIDO --');
+
+    const formValue = this.pedidoForm.value;
+
+    let subTotal = 0;
+    const valorDesconto = formValue.valorDesconto;
+    const taxaEntrega = formValue.taxaEntrega;
+    let valorTotal = 0;
+
+    formValue.produtos.map(produto => {
+      subTotal += produto.valorTotal;
+    });
+
+    valorTotal = subTotal - valorDesconto;
+    valorTotal += taxaEntrega;
+
+    this.pedidoForm.get('subTotal').setValue(subTotal);
+    this.pedidoForm.get('valorTotal').setValue(valorTotal);
   }
 
   onSubmit() {
@@ -127,10 +214,17 @@ export class CriarPedidoPageComponent implements OnInit {
   }
 
   consultarCep() {
+    console.log('-- CONSULTAR CEP --');
       return this.viaCepService.getEndereco(this.pedidoForm.value.endereco.cep)
       .then(res => {
         this.pedido = this.pedidoForm.value;
-        this.pedido.endereco = res;
+        this.pedido.endereco.cep = res.cep;
+        this.pedido.endereco.logradouro = res.logradouro;
+        this.pedido.endereco.bairro = res.bairro;
+        this.pedido.endereco.cidade = res.localidade;
+        this.pedido.endereco.estado = res.uf;
+        console.log(res);
+
         this.iniciarFormulario();
         this.Numero.setFocus();
       });  

@@ -9,7 +9,10 @@ const routes: Routes = [
     children: [
       { path: '', component: HomePageComponent },
       { path: 'home', component: HomePageComponent },
-      { path: 'pedidos', loadChildren: '../pedidos/pedidos.module#PedidosModule' }
+      { path: 'pedidos', loadChildren: '../pedidos/pedidos.module#PedidosModule' },
+      { path: 'entregas', loadChildren: '../entregas/entregas.module#EntregasModule' },
+      { path: 'clientes', loadChildren: '../clientes/clientes.module#ClientesModule' },
+      { path: 'usuarios', loadChildren: '../usuarios/usuarios.module#UsuariosModule' }
     ]
   }
 ];

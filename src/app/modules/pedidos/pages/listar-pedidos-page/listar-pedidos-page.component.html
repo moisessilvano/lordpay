@@ -6,11 +6,12 @@
   fxLayoutGap="10px grid"
   fxLayoutGap.xs="0"
 >
-  <div fxFlex="80">
+  <div fxFlex="50">
     <h1>Pedidos</h1>
   </div>
-  <div fxFlex="20" fxLayoutAlign="center center">
-    <button mat-raised-button color="primary" [routerLink]="['criar']" routerLinkActive="router-link-active" >Novo Pedido</button>
+  <div fxFlex="50" style="text-align: right; margin-top: 15px;">
+    <button mat-raised-button color="primary" [routerLink]="['criar']" routerLinkActive="router-link-active" >Novo Pedido Rápido</button>&nbsp;
+    <button mat-raised-button color="primary" [routerLink]="['criar']" routerLinkActive="router-link-active" >Novo Pedido Detalhado</button>
   </div>
 </div>
 
